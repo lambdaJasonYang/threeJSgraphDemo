@@ -6,7 +6,7 @@ import * as THREE from 'three'
 import {useRef,useLayoutEffect} from 'react';
 import { Line, Controls } from './Lines3';
 
-
+const range = (n) => Array.from(Array(n).keys())
 type props = {
   start: number[],
   end: number[]
@@ -34,11 +34,17 @@ function App() {
         <Canvas orthographic={true} camera={{ left: -300, right: 300, top: 300, bottom: -300, near: 0, far: 5}}>
           <mesh >
             <ringBufferGeometry args={[10,20,32]} />
+            
             <meshStandardMaterial />
             {/* <bufferGeometry position={[]}/> */}
           </mesh>
           {/* <Line start={[-100, 0, 0]} end={[100, 300, 0]} /> */}
           <Controls>
+            {range(10000).map((x) => {
+              return(
+                <Line defaultStart={[-x * Math.random(), -x*Math.random(), 0]} defaultEnd={[0, (x+1)*Math.random(), 0]} />
+              )
+            })}
         <Line defaultStart={[-100, -100, 0]} defaultEnd={[0, 100, 0]} />
         <Line defaultStart={[0, 100, 0]} defaultEnd={[100, -100, 0]} />
       </Controls>
